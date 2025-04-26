@@ -1,3 +1,15 @@
+# von https://github.com/github/gitignore/blob/main/Global/Eclipse.gitignore
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
 # gestohlen von: https://github.com/github/gitignore/blob/main/Maven.gitignore
 
