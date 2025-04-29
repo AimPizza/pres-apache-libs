@@ -1,5 +1,6 @@
 package de.dhsn.cs24_1.office_demo.shared;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -43,6 +44,7 @@ public class ReportModel {
 		this.notes = notes;
 	}
 
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 	public Date date;
 	public ArrayList<String> participants;
 	public ArrayList<String> agenda;
@@ -62,4 +64,28 @@ public class ReportModel {
 	public enum NoteType {
 		PARAGRAPH, BULLET
 	}
+
+	// provided by chatgpt B)
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("ReportModel{");
+		sb.append("date=").append(dateFormat.format(date)).append(", participants=").append(participants)
+				.append(", agenda=").append(agenda).append(", notes=[");
+
+		// Notes: Bullet mit "- ", Paragraph ohne Präfix
+		for (int i = 0; i < notes.size(); i++) {
+			Note n = notes.get(i);
+			if (n.type == NoteType.BULLET) {
+				sb.append("- ");
+			}
+			sb.append(n.content);
+			if (i < notes.size() - 1) {
+				sb.append("; ");
+			}
+		}
+
+		sb.append("]}");
+		return sb.toString();
+	}
+
 }
