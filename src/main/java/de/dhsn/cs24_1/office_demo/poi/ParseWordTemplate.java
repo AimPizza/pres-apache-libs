@@ -4,36 +4,121 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
-/* Here we try to parse the Word template specified in @see de.dhsn.cs24_1.office_demo.WordTemplate
+import de.dhsn.cs24_1.office_demo.shared.OurLog;
+import de.dhsn.cs24_1.office_demo.shared.ReportModel;
+import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
+
+/* Here we try to parse the Word template specified in @see de.dhsn.cs24_1.office_demo.WordTemplate.poi
  * 
  */
 public class ParseWordTemplate {
 
 	// TODO: should we handle this IOException?
 	public static void main(String[] args) throws IOException {
-		System.out.println("helloou");
-		// TODO: import the stuff from WordTemplate
+		List<XWPFParagraph> paragraphs;
+		ReportModel model = new ReportModel(null, null, null, null);
+		Date date = new Date(); // NOTE: will initialize to now, be aware of that
+		ArrayList<String> participants = new ArrayList<String>();
+		ArrayList<String> agenda = new ArrayList<String>();
+		ArrayList<ReportModel.Note> notes = new ArrayList<ReportModel.Note>();
+
+		System.out.println("parsing meeting..");
 
 		Path msWordPath = Paths.get(WordTemplate.output);
 
 		XWPFDocument document = new XWPFDocument(Files.newInputStream(msWordPath));
 		document = new XWPFDocument(Files.newInputStream(msWordPath));
 
-		List<XWPFParagraph> paragraphs = document.getParagraphs();
+		paragraphs = document.getParagraphs();
 		document.close();
 
-		List<XWPFParagraph> bulletParagraphs = paragraphs.stream().filter(p -> p.getNumID() != null)
-				.collect(Collectors.toList());
-		for (XWPFParagraph paragraph : bulletParagraphs) {
-			System.out.println("• " + paragraph.getText());
+		String currentHeading = "";
+		String pText = ""; // as in paragraphText
+
+		for (XWPFParagraph paragraph : paragraphs) {
+
+			pText = paragraph.getText().trim(); // I hope trimming the string won't pose a problem lol
+			if (pText.isEmpty())
+				continue;
+
+			// handle headings
+			if (paragraph.getStyle() != null && paragraph.getStyle().startsWith("Heading")) {
+
+				switch (pText) {
+				case WordTemplate.documentHeading:
+					currentHeading = WordTemplate.documentHeading;
+					break;
+				case WordTemplate.attendeesHeading:
+					currentHeading = WordTemplate.attendeesHeading;
+					break;
+				case WordTemplate.agendaHeading:
+					currentHeading = WordTemplate.agendaHeading;
+					break;
+				case WordTemplate.tasksHeading:
+					currentHeading = WordTemplate.tasksHeading;
+					break;
+				default:
+					currentHeading = "";
+					break;
+				}
+
+				continue;
+
+			}
+
+			if (currentHeading.length() > 0) {
+				switch (currentHeading) {
+				// we're very strict about the date format. It has to in the right format
+				case WordTemplate.documentHeading:
+					try {
+						date = ReportModel.dateFormat.parse(pText);
+					} catch (ParseException e) {
+						OurLog.logError("could not parse date");
+					}
+					break;
+				// attendees must be separated by a comma
+				case WordTemplate.attendeesHeading:
+					String[] participantsArray = pText.split(",");
+					for (String participant : participantsArray) {
+						participants.add(participant.trim());
+					}
+					break;
+				// all points of the agenda must be bullet points
+				case WordTemplate.agendaHeading:
+					if (paragraph.getNumID() != null) {
+						agenda.add(pText);
+					} else {
+						OurLog.log("disregarding agenda paragraph: " + pText);
+					}
+					break;
+				case WordTemplate.tasksHeading:
+					if (paragraph.getNumID() != null) {
+						notes.add(new Note(ReportModel.NoteType.BULLET, pText));
+					} else {
+						notes.add(new Note(ReportModel.NoteType.PARAGRAPH, pText));
+					}
+					break;
+				default:
+					break;
+				}
+
+			}
+
 		}
-		System.out.println("ehehe I left off here");
+
+		model.setDate(date);
+		model.setParticipants(participants);
+		model.setAgenda(agenda);
+		model.setNotes(notes);
+		System.out.println(model);
 	}
 
 }

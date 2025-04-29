@@ -9,6 +9,11 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class WordTemplate extends XWPFDocument {
 
+	public static final String documentHeading = "Meeting Notes Template";
+	public static final String attendeesHeading = "Attendees";
+	public static final String agendaHeading = "Agenda Items";
+	public static final String tasksHeading = "Tasks";
+
 	public static String output = "look-at-this.docx"; // TODO: rename into template or something
 
 	public WordTemplate() {
