@@ -1,4 +1,4 @@
-package de.dhsn.cs24_1.office_demo;
+package de.dhsn.cs24_1.office_demo.poi;
 
 import java.io.File;
 import java.io.FileOutputStream;
