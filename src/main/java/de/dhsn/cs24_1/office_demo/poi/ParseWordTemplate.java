@@ -21,8 +21,7 @@ import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
  */
 public class ParseWordTemplate {
 
-	// TODO: should we handle this IOException?
-	public static void main(String[] args) throws IOException {
+	public static ReportModel parseWordDocument(String wordFilePath) throws IOException {
 		List<XWPFParagraph> paragraphs;
 		ReportModel model = new ReportModel(null, null, null, null);
 		Date date = new Date(); // NOTE: will initialize to now, be aware of that
@@ -119,6 +118,11 @@ public class ParseWordTemplate {
 		model.setAgenda(agenda);
 		model.setNotes(notes);
 		System.out.println(model);
+		return model;
 	}
 
+	// TODO: should we handle this IOException?
+		public static void main(String[] args) throws IOException {
+			parseWordDocument(WordTemplate.output);
+		}
 }

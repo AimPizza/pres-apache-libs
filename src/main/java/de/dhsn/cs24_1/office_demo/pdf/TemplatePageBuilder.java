@@ -19,7 +19,7 @@ public class TemplatePageBuilder {
 
 			// Text to add:
 			String headline = "Meeting Notes";
-			String date = "Date:";
+			String date = "Datum:";
 			String people = "Teilnehmer:";
 			String agenda = "Agenda:";
 			String notes = "Notizen:";
@@ -53,11 +53,11 @@ public class TemplatePageBuilder {
 				contentStream.showText(people);
 				contentStream.endText();
 
-				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA, 11);
-				contentStream.newLineAtOffset(85, 650);
-				contentStream.showText("Ronny Reader, ...");
-				contentStream.endText();
+//				contentStream.beginText();
+//				contentStream.setFont(PDType1Font.HELVETICA, 11);
+//				contentStream.newLineAtOffset(85, 650);
+//				contentStream.showText("Ronny Reader, ...");
+//				contentStream.endText();
 
 				// Agenda
 				contentStream.beginText();
@@ -67,11 +67,11 @@ public class TemplatePageBuilder {
 				contentStream.endText();
 
 				// Bullet Point: Agenda - Text
-				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA, 11);
-				contentStream.newLineAtOffset(85, 550);
-				contentStream.showText("\u2022 Task 1");
-				contentStream.endText();
+//				contentStream.beginText();
+//				contentStream.setFont(PDType1Font.HELVETICA, 11);
+//				contentStream.newLineAtOffset(85, 550);
+//				contentStream.showText("\u2022 Task 1");
+//				contentStream.endText();
 
 				// Notes
 				contentStream.beginText();
@@ -81,11 +81,11 @@ public class TemplatePageBuilder {
 				contentStream.endText();
 
 				// Bullet Point: Notes - Text
-				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA, 11);
-				contentStream.newLineAtOffset(85, 400);
-				contentStream.showText("\u2022 Notiz 1");
-				contentStream.endText();
+//				contentStream.beginText();
+//				contentStream.setFont(PDType1Font.HELVETICA, 11);
+//				contentStream.newLineAtOffset(85, 400);
+//				contentStream.showText("\u2022 Notiz 1");
+//				contentStream.endText();
 			}
 
 			// === SECOND PAGE ===
@@ -101,7 +101,7 @@ public class TemplatePageBuilder {
 
 			// Save document
 			doc.save(file);
-			System.out.println("Content with bullet points added :)");
+			System.out.println("Content with bullet points added c:");
 
 		} catch (IOException e) {
 			e.printStackTrace();
