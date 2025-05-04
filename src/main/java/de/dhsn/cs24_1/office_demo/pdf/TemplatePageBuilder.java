@@ -8,7 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-public class PageBuilder {
+public class TemplatePageBuilder {
 
 	public static void main(String[] args) {
 
@@ -23,15 +23,15 @@ public class PageBuilder {
 			String people = "Teilnehmer:";
 			String agenda = "Agenda:";
 			String notes = "Notizen:";
-			String summary = "Zusammenfassung:";
-			String excel = "Zufriedenheit mit dem Meeting:";
+			String excel = "Meeting-Produktivität:";
 
-			// Creating a PDF Doc
+			// First page
 			PDPage page = doc.getPage(0);
 
-			// Content stream to write on the page
+			// Content stream to write on the first page
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, page)) {
-				// Begin the Content stream for headline
+
+				// Headline
 				contentStream.beginText();
 				contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
 				contentStream.setLeading(14.5f);
@@ -46,36 +46,51 @@ public class PageBuilder {
 				contentStream.showText(date);
 				contentStream.endText();
 
-				// Participants
-				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				// Teilnehmer
 				contentStream.beginText();
+				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
 				contentStream.newLineAtOffset(70, 670);
 				contentStream.showText(people);
 				contentStream.endText();
 
+				contentStream.beginText();
+				contentStream.setFont(PDType1Font.HELVETICA, 11);
+				contentStream.newLineAtOffset(85, 650);
+				contentStream.showText("Ronny Reader, ...");
+				contentStream.endText();
+
 				// Agenda
 				contentStream.beginText();
+				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
 				contentStream.newLineAtOffset(70, 570);
 				contentStream.showText(agenda);
 				contentStream.endText();
 
+				// Bullet Point: Agenda - Text
+				contentStream.beginText();
+				contentStream.setFont(PDType1Font.HELVETICA, 11);
+				contentStream.newLineAtOffset(85, 550);
+				contentStream.showText("\u2022 Task 1");
+				contentStream.endText();
+
 				// Notes
 				contentStream.beginText();
-				contentStream.newLineAtOffset(70, 400);
+				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				contentStream.newLineAtOffset(70, 420);
 				contentStream.showText(notes);
 				contentStream.endText();
 
-				// Summary
+				// Bullet Point: Notes - Text
 				contentStream.beginText();
-				contentStream.newLineAtOffset(70, 250);
-				contentStream.showText(summary);
+				contentStream.setFont(PDType1Font.HELVETICA, 11);
+				contentStream.newLineAtOffset(85, 400);
+				contentStream.showText("\u2022 Notiz 1");
 				contentStream.endText();
 			}
 
 			// === SECOND PAGE ===
 			PDPage secondPage = doc.getPage(1);
 
-			// Content stream to write on the second page
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, secondPage)) {
 				contentStream.beginText();
 				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
@@ -84,9 +99,9 @@ public class PageBuilder {
 				contentStream.endText();
 			}
 
-			// Saving the document
+			// Save document
 			doc.save(file);
-			System.out.println("Content added :]");
+			System.out.println("Content with bullet points added :)");
 
 		} catch (IOException e) {
 			e.printStackTrace();

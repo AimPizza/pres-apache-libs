@@ -8,7 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 //Class for creating documents, adding pages & document attributes
-public class MeetingNotesPDFCreator {
+public class PDFTemplateCreator {
 
 	public static void main(String[] args) {
 
