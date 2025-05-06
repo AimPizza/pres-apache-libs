@@ -8,30 +8,41 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import de.dhsn.cs24_1.office_demo.shared.OurLog;
+
 public class ExcelDemoWriter {
 
-	public static void main(String[] args) {
-		writeSomething();
+	public XSSFWorkbook workbook;
+
+	public ExcelDemoWriter(String[] sheetNames) {
+		this.workbook = new XSSFWorkbook();
+
+		for (String sheetName : sheetNames) {
+			workbook.createSheet(sheetName);
+		}
 	}
 
-	public static void writeSomething() {
-		// create workbook
-		XSSFWorkbook workbook = new XSSFWorkbook();
+	public static void main(String[] args) {
+		ExcelDemoWriter writer = new ExcelDemoWriter(new String[] { "Testdaten" });
 
-		XSSFSheet sheet = workbook.createSheet("Testdaten");
+		XSSFSheet sheet = writer.workbook.getSheetAt(0);
 
 		Row row = sheet.createRow(0);
 		Cell cell = row.createCell(0);
 		cell.setCellValue("Hello from my test!");
 
+		writer.save("test.xlsx");
+	}
+
+	public void save(String path) {
 		try {
-			FileOutputStream out = new FileOutputStream(new File("test.xlsx"));
+			FileOutputStream out = new FileOutputStream(new File(path));
 			workbook.write(out);
 			out.close();
 			workbook.close();
-			System.out.println("successfully written to file :)");
+			OurLog.log("successfully written to file :)");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			OurLog.logError(e.getMessage());
 		}
 
 	}
