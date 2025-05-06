@@ -10,7 +10,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import de.dhsn.cs24_1.office_demo.poi.ParseWordTemplate;
+import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
@@ -117,7 +117,7 @@ public class WordToPDFConverter {
 			TemplatePageBuilder.main(args);
 
 			// Parse the Word document and get the model
-			ReportModel model = ParseWordTemplate.parseWordDocument(WordTemplate.output);
+			ReportModel model = WordTemplateParser.parseWordDocument(WordTemplate.output);
 
 			// Convert to PDF using the template
 			WordToPDFConverter converter = new WordToPDFConverter();

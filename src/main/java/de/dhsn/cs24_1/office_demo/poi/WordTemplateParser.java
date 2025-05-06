@@ -19,7 +19,7 @@ import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
 /* Here we try to parse the Word template specified in @see de.dhsn.cs24_1.office_demo.WordTemplate.poi
  * 
  */
-public class ParseWordTemplate {
+public class WordTemplateParser {
 
 	public static ReportModel parseWordDocument(String wordFilePath) throws IOException {
 		List<XWPFParagraph> paragraphs;
