@@ -40,7 +40,7 @@ public class ExcelDemoWriter {
 			workbook.write(out);
 			out.close();
 			workbook.close();
-			OurLog.log("successfully written to file :)");
+			OurLog.log("successfully written to file :) " + path);
 		} catch (Exception e) {
 			OurLog.logError(e.getMessage());
 		}

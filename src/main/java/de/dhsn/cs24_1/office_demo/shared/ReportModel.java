@@ -50,6 +50,7 @@ public class ReportModel {
 	public ArrayList<String> agenda;
 	public ArrayList<Note> notes;
 
+	// TODO: cleanup
 	public static class Note {
 		public NoteType type;
 		public String content;
