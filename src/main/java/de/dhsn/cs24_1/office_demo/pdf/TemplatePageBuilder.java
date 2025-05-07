@@ -23,7 +23,7 @@ public class TemplatePageBuilder {
 			String people = "Teilnehmer:";
 			String agenda = "Agenda:";
 			String notes = "Notizen:";
-			String excel = "Meeting-Produktivität:";
+			String excel = "Tasks:";
 
 			// First page
 			PDPage page = doc.getPage(0);
@@ -99,7 +99,6 @@ public class TemplatePageBuilder {
 				contentStream.endText();
 			}
 
-			// Save document
 			doc.save(file);
 			System.out.println("Content with bullet points added c:");
 

@@ -30,25 +30,20 @@ public class WordToPDFConverter {
 		// Load the existing template
 		File templateFile = new File("pdf/meeting-notes_template.pdf");
 		try (PDDocument doc = PDDocument.load(templateFile)) {
-			// Get the first page
+
 			PDPage page = doc.getPage(0);
 
 			// Create content stream in append mode
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
-				// Add date
 				addDate(contentStream, model.getDate());
 
-				// Add participants
 				addParticipants(contentStream, model.getParticipants());
 
-				// Add agenda
 				addAgenda(contentStream, model.getAgenda());
 
-				// Add notes
 				addNotes(contentStream, model.getNotes());
 			}
 
-			// Save the document
 			doc.save(outputPath);
 		}
 	}
