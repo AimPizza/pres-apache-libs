@@ -1,4 +1,9 @@
 doc
+# these should be generated and not relied on by source control!
+*template.xlsx
+*test.xlsx
+*output.docx
+*lock.*
 
 # von https://github.com/github/gitignore/blob/main/Global/Eclipse.gitignore
 .metadata
