@@ -7,7 +7,7 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
-//Class for creating documents, adding pages & document attributes
+// Class for creating documents, adding pages & document attributes
 public class PDFTemplateCreator {
 
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class PDFTemplateCreator {
 
 			for (int i = 0; i < n; i++) {
 				// Creating a blank page
-				PDPage page = new PDPage(PDRectangle.A4); // else: US Letter Format
+				PDPage page = new PDPage(PDRectangle.A4); // default: US Letter Format
 
 				// Adding the blank page to the document
 				document.addPage(page);
