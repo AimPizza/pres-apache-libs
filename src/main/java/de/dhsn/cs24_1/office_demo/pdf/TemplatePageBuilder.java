@@ -1,5 +1,8 @@
 package de.dhsn.cs24_1.office_demo.pdf;
 
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.logError;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -7,8 +10,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
-import de.dhsn.cs24_1.office_demo.shared.OurLog;
 
 public class TemplatePageBuilder {
 
@@ -102,10 +103,10 @@ public class TemplatePageBuilder {
 			}
 
 			doc.save(file);
-			OurLog.log("Content with bullet points added c:");
+			log("Content with bullet points added c:");
 
 		} catch (IOException e) {
-			OurLog.logError(e.getMessage());
+			logError(e.getMessage());
 		}
 	}
 }

@@ -1,5 +1,8 @@
 package de.dhsn.cs24_1.office_demo.poi;
 
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.logError;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +22,6 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTInd;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTLvl;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STNumberFormat;
 
-import de.dhsn.cs24_1.office_demo.shared.OurLog;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 
 /* IDEAS FOR PRESENTATION
@@ -150,14 +152,14 @@ public class WordTemplate extends XWPFDocument {
 	public void save() {
 		try (FileOutputStream out = new FileOutputStream(output)) {
 			doc.write(out);
-			OurLog.log("success saving file");
+			log("success saving file");
 		} catch (Exception e) {
-			OurLog.logError(e.getMessage());
+			logError(e.getMessage());
 		}
 	}
 
 	public static void main(String[] args) throws IOException {
-		OurLog.log("creating word template..");
+		log("creating word template..");
 
 		WordTemplate document = new WordTemplate();
 		document.save();
@@ -166,7 +168,7 @@ public class WordTemplate extends XWPFDocument {
 		try {
 			document.close();
 		} catch (Exception e) {
-			OurLog.logError(e.getLocalizedMessage());
+			logError(e.getLocalizedMessage());
 
 		}
 	}

@@ -1,5 +1,7 @@
 package de.dhsn.cs24_1.office_demo.pdf;
 
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +12,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
-import de.dhsn.cs24_1.office_demo.shared.OurLog;
+import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.NoteType;
@@ -118,7 +119,7 @@ public class WordToPDFConverter {
 			// Convert to PDF using the template
 			WordToPDFConverter converter = new WordToPDFConverter();
 			converter.convert(model, "pdf/meeting_notes.pdf");
-			OurLog.log("PDF created successfully!");
+			log("PDF created successfully!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

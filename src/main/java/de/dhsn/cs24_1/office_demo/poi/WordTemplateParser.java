@@ -1,5 +1,8 @@
 package de.dhsn.cs24_1.office_demo.poi;
 
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.logError;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +15,6 @@ import java.util.List;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
-import de.dhsn.cs24_1.office_demo.shared.OurLog;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
 
@@ -29,7 +31,7 @@ public class WordTemplateParser {
 		ArrayList<String> agenda = new ArrayList<String>();
 		ArrayList<ReportModel.Note> notes = new ArrayList<ReportModel.Note>();
 
-		OurLog.log("parsing meeting..");
+		log("parsing meeting..");
 
 		Path msWordPath = Paths.get(WordTemplate.output);
 
@@ -80,7 +82,7 @@ public class WordTemplateParser {
 					try {
 						date = ReportModel.dateFormat.parse(pText);
 					} catch (ParseException e) {
-						OurLog.logError("could not parse date");
+						logError("could not parse date");
 					}
 					break;
 				// attendees must be separated by a comma
@@ -95,7 +97,7 @@ public class WordTemplateParser {
 					if (paragraph.getNumID() != null) {
 						agenda.add(pText);
 					} else {
-						OurLog.log("disregarding agenda paragraph: " + pText);
+						log("disregarding agenda paragraph: " + pText);
 					}
 					break;
 				case WordTemplate.tasksHeading:
@@ -117,7 +119,7 @@ public class WordTemplateParser {
 		model.setParticipants(participants);
 		model.setAgenda(agenda);
 		model.setNotes(notes);
-		OurLog.log(model.toString());
+		log(model.toString());
 		return model;
 	}
 

@@ -1,5 +1,8 @@
 package de.dhsn.cs24_1.office_demo.poi;
 
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+import static de.dhsn.cs24_1.office_demo.shared.OurLog.logError;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -7,8 +10,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import de.dhsn.cs24_1.office_demo.shared.OurLog;
 
 public class ExcelDemoWriter {
 
@@ -40,9 +41,9 @@ public class ExcelDemoWriter {
 			workbook.write(out);
 			out.close();
 			workbook.close();
-			OurLog.log("successfully written to file :) " + path);
+			log("successfully written to file :) " + path);
 		} catch (Exception e) {
-			OurLog.logError(e.getMessage());
+			logError(e.getMessage());
 		}
 
 	}
