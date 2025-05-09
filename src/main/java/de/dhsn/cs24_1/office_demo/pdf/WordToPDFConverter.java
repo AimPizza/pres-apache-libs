@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
+import de.dhsn.cs24_1.office_demo.shared.OurLog;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel.NoteType;
@@ -117,7 +118,7 @@ public class WordToPDFConverter {
 			// Convert to PDF using the template
 			WordToPDFConverter converter = new WordToPDFConverter();
 			converter.convert(model, "pdf/meeting_notes.pdf");
-			System.out.println("PDF created successfully!");
+			OurLog.log("PDF created successfully!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

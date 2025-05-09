@@ -7,6 +7,8 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
+import de.dhsn.cs24_1.office_demo.shared.OurLog;
+
 // Class for creating documents, adding pages & document attributes
 public class PDFTemplateCreator {
 
@@ -30,7 +32,7 @@ public class PDFTemplateCreator {
 
 			// Saving the document
 			document.save("pdf/meeting-notes_template.pdf");
-			System.out.println("PDF with " + n + " pages created c:");
+			OurLog.log("PDF with " + n + " pages created c:");
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -8,6 +8,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import de.dhsn.cs24_1.office_demo.shared.OurLog;
+
 public class TemplatePageBuilder {
 
 	public static void main(String[] args) {
@@ -100,10 +102,10 @@ public class TemplatePageBuilder {
 			}
 
 			doc.save(file);
-			System.out.println("Content with bullet points added c:");
+			OurLog.log("Content with bullet points added c:");
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			OurLog.logError(e.getMessage());
 		}
 	}
 }

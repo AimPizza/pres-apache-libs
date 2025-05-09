@@ -29,7 +29,7 @@ public class WordTemplateParser {
 		ArrayList<String> agenda = new ArrayList<String>();
 		ArrayList<ReportModel.Note> notes = new ArrayList<ReportModel.Note>();
 
-		System.out.println("parsing meeting..");
+		OurLog.log("parsing meeting..");
 
 		Path msWordPath = Paths.get(WordTemplate.output);
 
@@ -117,12 +117,12 @@ public class WordTemplateParser {
 		model.setParticipants(participants);
 		model.setAgenda(agenda);
 		model.setNotes(notes);
-		System.out.println(model);
+		OurLog.log(model.toString());
 		return model;
 	}
 
 	// TODO: should we handle this IOException?
-		public static void main(String[] args) throws IOException {
-			parseWordDocument(WordTemplate.output);
-		}
+	public static void main(String[] args) throws IOException {
+		parseWordDocument(WordTemplate.output);
+	}
 }
