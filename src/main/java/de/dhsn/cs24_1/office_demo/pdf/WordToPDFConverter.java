@@ -108,7 +108,7 @@ public class WordToPDFConverter {
 	public static void main(String[] args) {
 		try {
 			// First, create the template if it doesn't exist
-			PDFTemplateCreator.main(args);
+			PDFCreator.main(args);
 
 			// Then build the template structure
 			TemplatePageBuilder.main(args);

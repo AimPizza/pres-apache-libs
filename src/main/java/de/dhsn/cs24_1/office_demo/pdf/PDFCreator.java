@@ -10,11 +10,11 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 // Class for creating documents, adding pages & document attributes
-public class PDFTemplateCreator {
+public class PDFCreator {
 
 	public static void main(String[] args) {
 
-		int n = 2;
+		int n = 3;
 
 		// Creating PDF document object
 		try (PDDocument document = new PDDocument()) {
