@@ -6,8 +6,13 @@ import java.util.Arrays;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.PatternFormatting;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
 import org.apache.poi.ss.util.AreaReference;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFTable;
@@ -26,9 +31,6 @@ public class ExcelTemplateWriter {
 	int verticalOffset = 1;
 	public ExcelDemoWriter document;
 	public XSSFSheet sheet;
-
-	// TODO:
-	// - format pretty table
 
 	public void removeCompletedTasks() {
 
@@ -63,6 +65,22 @@ public class ExcelTemplateWriter {
 		document.save(demoFilePath);
 	}
 
+	/// Will make row LIME colored if the completion column has any value
+	public void addConditionalFormatting() {
+		SheetConditionalFormatting sheetCF = sheet.getSheetConditionalFormatting();
+		// E: Spalte des Status, 3: offset
+		ConditionalFormattingRule rule = sheetCF.createConditionalFormattingRule("NOT(ISBLANK($E3))");
+
+		PatternFormatting fill = rule.createPatternFormatting();
+		fill.setFillBackgroundColor(IndexedColors.LIME.index); // https://www.linkedin.com/pulse/color-palette-poi-indexedcolors-aniruddha-duttachowdhury
+		fill.setFillPattern(PatternFormatting.SOLID_FOREGROUND);
+
+		ConditionalFormattingRule[] conditionalFormattingRules = new ConditionalFormattingRule[] { rule };
+
+		CellRangeAddress[] regions = new CellRangeAddress[] { CellRangeAddress.valueOf("B3:F1000") };
+		sheetCF.addConditionalFormatting(regions, conditionalFormattingRules);
+	}
+
 	public void writeTemplate() {
 		AreaReference reference = document.workbook.getCreationHelper().createAreaReference(
 				new CellReference(verticalOffset, horizontalOffset),
@@ -89,14 +107,14 @@ public class ExcelTemplateWriter {
 			sheet.setColumnWidth(columnIndex, sheet.getColumnWidth(columnIndex) + 5 * 256);
 		}
 
+		addConditionalFormatting();
+
 		document.save(demoFilePath);
 	}
 
 	public static void main(String[] args) {
 		ExcelTemplateWriter writer = new ExcelTemplateWriter();
 
-		// writer.writeTemplate();
-
-		writer.removeCompletedTasks();
+		writer.writeTemplate();
 	}
 }
