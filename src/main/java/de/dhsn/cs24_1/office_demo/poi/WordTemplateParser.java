@@ -1,7 +1,7 @@
 package de.dhsn.cs24_1.office_demo.poi;
 
-import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
-import static de.dhsn.cs24_1.office_demo.shared.OurLog.logError;
+import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
+import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;
 
 import java.io.IOException;
 import java.nio.file.Files;

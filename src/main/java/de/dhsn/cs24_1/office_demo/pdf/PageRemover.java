@@ -1,6 +1,6 @@
 package de.dhsn.cs24_1.office_demo.pdf;
 
-import static de.dhsn.cs24_1.office_demo.shared.OurLog.log;
+import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
 
 import java.io.File;
 import java.io.IOException;
