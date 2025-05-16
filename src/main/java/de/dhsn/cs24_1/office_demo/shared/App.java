@@ -1,7 +1,7 @@
 package de.dhsn.cs24_1.office_demo.shared;
 
 import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
-import static de.dhsn.cs24_1.office_demo.shared.Utilities.readInteger;;
+import static de.dhsn.cs24_1.office_demo.shared.Utilities.promptWithOptions;;
 
 /**
  * I'll try out the command pattern TODO: - not usable yet !
@@ -36,9 +36,12 @@ class CreateWordTemplateCommand implements Command {
 
 public class App {
 	public static void main(String[] args) {
-		log("Hello World!");
-		int myInt = readInteger("input something");
-		log(Integer.toString(myInt));
+		int choice = promptWithOptions(
+				new String[] { "Hallo, was soll erstellt werden?", "Meeting-Notes Template", "Management Report" });
+		if (choice == 1) {
+			choice = promptWithOptions(new String[] { "Erstes Meeting?", "Ja", "Nein" });
+			log(choice);
+		}
 
 		log("thank's for joining our demo!");
 	}

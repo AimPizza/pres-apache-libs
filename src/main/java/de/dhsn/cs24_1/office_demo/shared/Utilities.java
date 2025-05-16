@@ -8,6 +8,10 @@ public class Utilities {
 		System.out.println(message);
 	}
 
+	public static void log(Integer message) {
+		System.out.println(Integer.toString(message));
+	}
+
 	public static void logError(String errorMessage) {
 		System.out.println("Error: " + errorMessage);
 	}
@@ -16,7 +20,7 @@ public class Utilities {
 	/// returns -1 in case of error
 	public static Integer readInteger(String prompt) {
 		Scanner in = new Scanner(System.in);
-		System.out.print(prompt + ": ");
+		System.out.print(prompt);
 		String userChoice = in.nextLine();
 		try {
 			int choiceAsInt = Integer.parseInt(userChoice);
@@ -26,4 +30,17 @@ public class Utilities {
 			return -1;
 		}
 	}
+
+	public static Integer promptWithOptions(String[] titleAndOptions) {
+		for (int i = 0; i < titleAndOptions.length; i++) {
+			if (i == 0)
+				log(titleAndOptions[i]);
+			else
+				log(Integer.toString(i) + ") " + titleAndOptions[i]);
+		}
+		for (String element : titleAndOptions) {
+		}
+		return readInteger("> ");
+	}
+
 }
