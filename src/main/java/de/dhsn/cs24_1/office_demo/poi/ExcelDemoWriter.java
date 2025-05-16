@@ -35,7 +35,7 @@ public class ExcelDemoWriter {
 		Cell cell = row.createCell(0);
 		cell.setCellValue("Hello from my test!");
 
-		writer.save("test.xlsx");
+		writer.save("poi/simple.xlsx");
 	}
 
 	public void save(String path) {

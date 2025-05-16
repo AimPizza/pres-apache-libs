@@ -16,7 +16,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
-import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
 
 /* Here we try to parse the Word template specified in @see de.dhsn.cs24_1.office_demo.WordTemplate.poi
  * 
@@ -29,7 +28,7 @@ public class WordTemplateParser {
 		Date date = new Date(); // NOTE: will initialize to now, be aware of that
 		ArrayList<String> participants = new ArrayList<String>();
 		ArrayList<String> agenda = new ArrayList<String>();
-		ArrayList<ReportModel.Note> notes = new ArrayList<ReportModel.Note>();
+		ArrayList<String> notes = new ArrayList<String>();
 
 		log("parsing meeting..");
 
@@ -100,11 +99,12 @@ public class WordTemplateParser {
 						log("disregarding agenda paragraph: " + pText);
 					}
 					break;
+				// tasks must be bullet points
 				case WordTemplate.tasksHeading:
 					if (paragraph.getNumID() != null) {
-						notes.add(new Note(ReportModel.NoteType.BULLET, pText));
+						notes.add(pText);
 					} else {
-						notes.add(new Note(ReportModel.NoteType.PARAGRAPH, pText));
+						log("disregarding task paragraph that is not a bullet point: " + pText);
 					}
 					break;
 				default:

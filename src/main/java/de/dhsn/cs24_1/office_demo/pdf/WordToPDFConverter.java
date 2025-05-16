@@ -15,8 +15,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
-import de.dhsn.cs24_1.office_demo.shared.ReportModel.Note;
-import de.dhsn.cs24_1.office_demo.shared.ReportModel.NoteType;
 
 public class WordToPDFConverter {
 	// Layout constants matching TemplatePageBuilder
@@ -88,18 +86,14 @@ public class WordToPDFConverter {
 		contentStream.endText();
 	}
 
-	private void addNotes(PDPageContentStream contentStream, ArrayList<Note> notes) throws IOException {
+	private void addNotes(PDPageContentStream contentStream, ArrayList<String> notes) throws IOException {
 		float currentY = NOTES_Y - LINE_SPACING;
 		contentStream.beginText();
 		contentStream.setFont(PDType1Font.HELVETICA, 11);
 
-		for (Note note : notes) {
+		for (String note : notes) {
 			contentStream.newLineAtOffset(MARGIN + INDENT, currentY);
-			if (note.type == NoteType.BULLET) {
-				contentStream.showText("\u2022 " + note.content);
-			} else {
-				contentStream.showText(note.content);
-			}
+			contentStream.showText("\u2022 " + note);
 			currentY -= LINE_SPACING;
 		}
 		contentStream.endText();

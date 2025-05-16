@@ -24,6 +24,7 @@ public class Utilities {
 		String userChoice = in.nextLine();
 		try {
 			int choiceAsInt = Integer.parseInt(userChoice);
+			in.close();
 			return choiceAsInt;
 		} catch (Exception e) {
 			logError("parsing Integer - " + e.getLocalizedMessage());
@@ -37,8 +38,6 @@ public class Utilities {
 				log(titleAndOptions[i]);
 			else
 				log(Integer.toString(i) + ") " + titleAndOptions[i]);
-		}
-		for (String element : titleAndOptions) {
 		}
 		return readInteger("> ");
 	}
