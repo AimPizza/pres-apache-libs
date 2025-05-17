@@ -62,8 +62,8 @@ public class WordTemplateParser {
 				case WordTemplate.agendaHeading:
 					currentHeading = WordTemplate.agendaHeading;
 					break;
-				case WordTemplate.tasksHeading:
-					currentHeading = WordTemplate.tasksHeading;
+				case WordTemplate.notesHeading:
+					currentHeading = WordTemplate.notesHeading;
 					break;
 				default:
 					currentHeading = "";
@@ -99,12 +99,12 @@ public class WordTemplateParser {
 						log("disregarding agenda paragraph: " + pText);
 					}
 					break;
-				// tasks must be bullet points
-				case WordTemplate.tasksHeading:
+				// notes must be bullet points
+				case WordTemplate.notesHeading:
 					if (paragraph.getNumID() != null) {
 						notes.add(pText);
 					} else {
-						log("disregarding task paragraph that is not a bullet point: " + pText);
+						log("disregarding note paragraph that is not a bullet point: " + pText);
 					}
 					break;
 				default:

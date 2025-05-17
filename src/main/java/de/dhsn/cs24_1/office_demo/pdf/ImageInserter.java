@@ -14,7 +14,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public class ImageInserter {
 
-	public void insert() throws IOException {
+	public void insert() {
 		// Load the existing template
 		File file = new File("pdf/meeting_notes.pdf");
 		try (PDDocument doc = PDDocument.load(file)) {
@@ -25,6 +25,9 @@ public class ImageInserter {
 			addImage(doc, page);
 
 			doc.save("pdf/meeting_report.pdf");
+			log("Saved pdf with image. " + "pdf/meeting_report.pdf");
+		} catch (Exception e) {
+			logError("Failed to insert image: " + e.getLocalizedMessage());
 		}
 	}
 
@@ -32,23 +35,25 @@ public class ImageInserter {
 		// Creating PDImageXObject object
 		PDImageXObject pdImage = PDImageXObject.createFromFile("pdf/excel_table.png", doc);
 
+		int originalWidth = pdImage.getWidth();
+		int originalHeight = pdImage.getHeight();
+
+		// calculate new dimensions, avoid distortion
+		int resizedWidth = 500;
+		int resizedHeight = (int) Math.round((double) originalHeight * resizedWidth / originalWidth);
+		int x = 70, y = 600; // note: coordinates are at bottom-left corner
+
 		// Append to existing page content
 		try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
-			contentStream.drawImage(pdImage, 70, 370); // TODO: adjust position & size
+			contentStream.drawImage(pdImage, x, y, resizedWidth, resizedHeight);
 		}
 	}
 
 	public static void main(String[] args) throws IOException {
-		try {
-			WordToPDFConverter.main(args);
-			ImageInserter inserter = new ImageInserter();
-			inserter.insert();
+		WordToPDFConverter.main(args);
+		ImageInserter inserter = new ImageInserter();
+		inserter.insert();
 
-			log("Table was inserted into PDF :)");
-
-		} catch (IOException e) {
-			logError("An error occurred while inserting the image into the PDF:");
-			e.printStackTrace();
-		}
+		log("Table was inserted into PDF :)");
 	}
 }
