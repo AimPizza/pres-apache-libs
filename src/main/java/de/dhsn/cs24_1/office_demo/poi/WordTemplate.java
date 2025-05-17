@@ -5,21 +5,16 @@ import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.xwpf.usermodel.XWPFAbstractNum;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFNum;
 import org.apache.poi.xwpf.usermodel.XWPFNumbering;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTAbstractNum;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTInd;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTLvl;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STNumberFormat;
 
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
@@ -28,22 +23,28 @@ import de.dhsn.cs24_1.office_demo.shared.ReportModel;
  * - show xml output of a document https://modkp-technotes.blogspot.com/2013/04/poi-ordered-list-and-unordered-list.html 
  * - explain chicanery with "Heading1" and other styles
  */
-public class WordTemplate extends XWPFDocument {
+public class WordTemplate {
 
 	public static final String documentHeading = "Meeting Notes Template";
 	public static final String attendeesHeading = "Attendees";
 	public static final String agendaHeading = "Agenda Items";
-	public static final String tasksHeading = "Tasks";
+	public static final String notesHeading = "Notes";
 
 	public static String output = "poi/output.docx";
 	private XWPFDocument doc;
 	private XWPFNumbering numbering;
 	BigInteger bulletNumID;
 
-	public WordTemplate() throws IOException {
-		// certain styles only exist when a docx file has been written with those
+	public WordTemplate() {
+		copyStylesFromBase();
+	}
+
+	/// Will set the basic properties and "metadata" for our document
+	void copyStylesFromBase() {
+		// open base file and copy styles over to our document:
+		// certain styles only exist when a DOCX file has been written with those
 		// included - they're not there by default
-		// at least they're consistent between word and libreoffice
+		// at least they're consistent between word and LibreOffice
 		try (FileInputStream in = new FileInputStream("poi/base.docx")) {
 			this.doc = new XWPFDocument(in);
 
@@ -61,13 +62,15 @@ public class WordTemplate extends XWPFDocument {
 				throw new IllegalStateException("Keine Bullet-Nummerierung in base.docx gefunden!");
 			}
 
-			this.removeAllParagraphs();
+			this.removeAllParagraphs(); // clear the content of what we've copied from the template
+		} catch (Exception e) {
+			logError(e.getLocalizedMessage());
 		}
-		createBaseTemplate();
 	}
 
-	public void createBaseTemplate() {
-		// Elements come in Paragraphs
+	void setTemplateContent() {
+		// Text goes into Paragraphs
+		// hard-coded B)
 		XWPFParagraph title = doc.createParagraph();
 		title.setStyle("Heading1");
 		writeRun(title, documentHeading, 35);
@@ -90,13 +93,13 @@ public class WordTemplate extends XWPFDocument {
 		agendaPoint.setNumID(bulletNumID);
 		writeRun(agendaPoint, "erster Punkt der Agenda");
 
-		XWPFParagraph tasksHeading = doc.createParagraph();
-		tasksHeading.setStyle("Heading2");
-		writeRun(tasksHeading, WordTemplate.tasksHeading, 25);
+		XWPFParagraph notesHeading = doc.createParagraph();
+		notesHeading.setStyle("Heading2");
+		writeRun(notesHeading, WordTemplate.notesHeading, 25);
 
-		XWPFParagraph taskPoint = doc.createParagraph();
-		taskPoint.setNumID(bulletNumID);
-		writeRun(taskPoint, "eine erste Aufgabe");
+		XWPFParagraph notePoint = doc.createParagraph();
+		notePoint.setNumID(bulletNumID);
+		writeRun(notePoint, "eine erste Notiz");
 	}
 
 	void removeAllParagraphs() {
@@ -132,44 +135,26 @@ public class WordTemplate extends XWPFDocument {
 		writeRun(doc.createParagraph(), "");
 	}
 
-	BigInteger customNumbering() {
-		numbering = doc.createNumbering();
-		CTAbstractNum abstractNum = CTAbstractNum.Factory.newInstance();
-		abstractNum.setAbstractNumId(BigInteger.valueOf(0));
-		CTLvl lvl = abstractNum.addNewLvl();
-		lvl.setIlvl(BigInteger.ZERO);
-		lvl.addNewNumFmt().setVal(STNumberFormat.BULLET);
-		lvl.addNewLvlText().setVal("•");
-		CTInd indent = lvl.addNewPPr().addNewInd();
-		indent.setLeft(BigInteger.valueOf(720));
-
-		XWPFAbstractNum xwpfAbstractNum = new XWPFAbstractNum(abstractNum);
-		BigInteger abstractNumID = numbering.addAbstractNum(xwpfAbstractNum);
-		BigInteger numID = numbering.addNum(abstractNumID);
-		return numID;
-	}
-
-	public void save() {
+	void save() {
 		try (FileOutputStream out = new FileOutputStream(output)) {
 			doc.write(out);
-			log("success saving file");
+			log("success saving file to " + output);
+			this.doc.close();
 		} catch (Exception e) {
 			logError(e.getMessage());
 		}
+
 	}
 
-	public static void main(String[] args) throws IOException {
+	public void writeTemplate() {
+		setTemplateContent();
+		save();
+	}
+
+	public static void main(String[] args) {
 		log("creating word template..");
 
 		WordTemplate document = new WordTemplate();
-		document.save();
-
-		// Close the document after saving
-		try {
-			document.close();
-		} catch (Exception e) {
-			logError(e.getLocalizedMessage());
-
-		}
+		document.writeTemplate();
 	}
 }
