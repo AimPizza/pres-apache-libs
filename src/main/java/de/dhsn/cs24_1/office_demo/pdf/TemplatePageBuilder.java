@@ -56,12 +56,6 @@ public class TemplatePageBuilder {
 				contentStream.showText(people);
 				contentStream.endText();
 
-//				contentStream.beginText();
-//				contentStream.setFont(PDType1Font.HELVETICA, 11);
-//				contentStream.newLineAtOffset(85, 650);
-//				contentStream.showText("Ronny Reader, ...");
-//				contentStream.endText();
-
 				// Agenda
 				contentStream.beginText();
 				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
@@ -69,26 +63,12 @@ public class TemplatePageBuilder {
 				contentStream.showText(agenda);
 				contentStream.endText();
 
-				// Bullet Point: Agenda - Text
-//				contentStream.beginText();
-//				contentStream.setFont(PDType1Font.HELVETICA, 11);
-//				contentStream.newLineAtOffset(85, 550);
-//				contentStream.showText("\u2022 Task 1");
-//				contentStream.endText();
-
 				// Notes
 				contentStream.beginText();
 				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
 				contentStream.newLineAtOffset(70, 420);
 				contentStream.showText(notes);
 				contentStream.endText();
-
-				// Bullet Point: Notes - Text
-//				contentStream.beginText();
-//				contentStream.setFont(PDType1Font.HELVETICA, 11);
-//				contentStream.newLineAtOffset(85, 400);
-//				contentStream.showText("\u2022 Notiz 1");
-//				contentStream.endText();
 			}
 
 			// === SECOND PAGE ===
