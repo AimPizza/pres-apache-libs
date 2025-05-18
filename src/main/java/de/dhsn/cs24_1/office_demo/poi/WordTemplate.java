@@ -4,7 +4,6 @@ import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
 import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,20 +134,9 @@ public class WordTemplate {
 		writeRun(doc.createParagraph(), "");
 	}
 
-	void save() {
-		try (FileOutputStream out = new FileOutputStream(output)) {
-			doc.write(out);
-			log("success saving file to " + output);
-			this.doc.close();
-		} catch (Exception e) {
-			logError(e.getMessage());
-		}
-
-	}
-
 	public void writeTemplate() {
 		setTemplateContent();
-		save();
+		WordDemoWriter.save(this.doc, WordTemplate.output); // output is static, that's why not 'this.output'
 	}
 
 	public static void main(String[] args) {
