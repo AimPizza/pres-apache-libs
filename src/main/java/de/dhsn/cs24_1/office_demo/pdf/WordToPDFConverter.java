@@ -57,44 +57,38 @@ public class WordToPDFConverter {
 	}
 
 	private void addParticipants(PDPageContentStream contentStream, ArrayList<String> participants) throws IOException {
-		float currentY = PARTICIPANTS_Y - LINE_SPACING;
 		contentStream.beginText();
 		contentStream.setFont(PDType1Font.HELVETICA, 11);
-		contentStream.newLineAtOffset(MARGIN + INDENT, currentY);
+		contentStream.newLineAtOffset(MARGIN + INDENT, PARTICIPANTS_Y - LINE_SPACING);
 
-		StringBuilder participantsText = new StringBuilder();
-		for (int i = 0; i < participants.size(); i++) {
-			participantsText.append(participants.get(i));
-			if (i < participants.size() - 1) {
-				participantsText.append(", ");
-			}
-		}
-		contentStream.showText(participantsText.toString());
+		String line = String.join(", ", participants);
+		contentStream.showText(line);
 		contentStream.endText();
 	}
 
 	private void addAgenda(PDPageContentStream contentStream, ArrayList<String> agenda) throws IOException {
-		float currentY = AGENDA_Y - LINE_SPACING;
 		contentStream.beginText();
 		contentStream.setFont(PDType1Font.HELVETICA, 11);
+		// one absolute move to the first bullet position
+		contentStream.newLineAtOffset(MARGIN + INDENT, AGENDA_Y - LINE_SPACING);
+		contentStream.setLeading(LINE_SPACING);
 
 		for (String item : agenda) {
-			contentStream.newLineAtOffset(MARGIN + INDENT, currentY);
 			contentStream.showText("\u2022 " + item);
-			currentY -= LINE_SPACING;
+			contentStream.newLine();
 		}
 		contentStream.endText();
 	}
 
 	private void addNotes(PDPageContentStream contentStream, ArrayList<String> notes) throws IOException {
-		float currentY = NOTES_Y - LINE_SPACING;
 		contentStream.beginText();
 		contentStream.setFont(PDType1Font.HELVETICA, 11);
-
+		// initial absolute position:
+		contentStream.newLineAtOffset(MARGIN + INDENT, NOTES_Y - LINE_SPACING);
+		contentStream.setLeading(LINE_SPACING);
 		for (String note : notes) {
-			contentStream.newLineAtOffset(MARGIN + INDENT, currentY);
 			contentStream.showText("\u2022 " + note);
-			currentY -= LINE_SPACING;
+			contentStream.newLine(); // moves down by leading
 		}
 		contentStream.endText();
 	}
@@ -112,8 +106,10 @@ public class WordToPDFConverter {
 
 			// Convert to PDF using the template
 			WordToPDFConverter converter = new WordToPDFConverter();
-			converter.convert(model, "pdf/meeting_notes.pdf");
-			log("PDF created successfully!");
+
+			String outputPath = "pdf/meeting_notes.pdf";
+			converter.convert(model, outputPath);
+			log("PDF created successfully! " + outputPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

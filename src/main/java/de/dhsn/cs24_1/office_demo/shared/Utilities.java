@@ -4,12 +4,22 @@ import java.util.Scanner;
 
 // I think that'd be nice to have less System.out.println(); statements
 public class Utilities {
+
+	static final Scanner IN = new Scanner(System.in);
+
 	public static void log(String message) {
-		System.out.println(message);
+		log(message, true);
+	}
+
+	public static void log(String message, Boolean showPrefix) {
+		if (showPrefix)
+			System.out.println("Info: " + message);
+		else
+			System.out.println(message);
 	}
 
 	public static void log(Integer message) {
-		System.out.println(Integer.toString(message));
+		log(Integer.toString(message), true);
 	}
 
 	public static void logError(String errorMessage) {
@@ -19,12 +29,10 @@ public class Utilities {
 	/// parses Integer from user input based on a prompt.
 	/// returns -1 in case of error
 	public static Integer readInteger(String prompt) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(prompt);
-		String userChoice = in.nextLine();
+		String userChoice = IN.nextLine();
 		try {
 			int choiceAsInt = Integer.parseInt(userChoice);
-			in.close();
 			return choiceAsInt;
 		} catch (Exception e) {
 			logError("parsing Integer - " + e.getLocalizedMessage());
@@ -33,11 +41,12 @@ public class Utilities {
 	}
 
 	public static Integer promptWithOptions(String[] titleAndOptions) {
+		log("----------", false);
 		for (int i = 0; i < titleAndOptions.length; i++) {
 			if (i == 0)
-				log(titleAndOptions[i]);
+				log(titleAndOptions[i], false);
 			else
-				log(Integer.toString(i) + ") " + titleAndOptions[i]);
+				log(Integer.toString(i) + ") " + titleAndOptions[i], false);
 		}
 		return readInteger("> ");
 	}

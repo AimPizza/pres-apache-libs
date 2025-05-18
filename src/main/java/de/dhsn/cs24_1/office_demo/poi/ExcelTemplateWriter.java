@@ -25,7 +25,7 @@ public class ExcelTemplateWriter {
 	}
 
 	public static String[] headerElements = { "Aufgabe", "Verantwortlich", "Deadline", "Erledigt", "Priorität" };
-	public static String demoFilePath = "./template.xlsx";
+	public static String demoFilePath = "poi/template.xlsx";
 
 	int horizontalOffset = 1;
 	int verticalOffset = 1;
