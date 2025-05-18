@@ -6,30 +6,23 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 
-public class PageRemover {
-
+public class TextExtractor {
 	public static void main(String args[]) throws IOException {
 
 		// Loading an existing document
 		File file = new File("pdf/test.pdf");
 		PDDocument document = PDDocument.load(file);
 
-		// Listing the number of existing pages
-		int noOfPages = document.getNumberOfPages();
-		int lastPage = noOfPages - 1;
-		log("There are " + noOfPages + " pages. ");
+		// Instantiate PDFTextStripper class
+		PDFTextStripper pdfStripper = new PDFTextStripper();
 
-		// Removing the pages (= index of the page)
-		document.removePage(lastPage);
-
-		log("Last page removed.");
-
-		// Saving the document
-		document.save(file);
+		// Retrieving text from PDF document
+		String text = pdfStripper.getText(document);
+		log(text);
 
 		// Closing the document
 		document.close();
-
 	}
 }

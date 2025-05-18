@@ -16,7 +16,7 @@ public class TemplatePageBuilder {
 	public static void main(String[] args) {
 
 		// Loading an existing document
-		File file = new File("pdf/meeting-notes_template.pdf");
+		File file = new File("pdf/test.pdf");
 
 		try (PDDocument doc = PDDocument.load(file)) {
 
@@ -82,8 +82,8 @@ public class TemplatePageBuilder {
 				contentStream.endText();
 			}
 
-			doc.save(file);
-			log("Content with bullet points added c:");
+			doc.save("pdf/meeting_notes_template.pdf");
+			log("Template with headlines was created :)");
 
 		} catch (IOException e) {
 			logError(e.getMessage());

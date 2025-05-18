@@ -14,7 +14,7 @@ public class PDFSplitter {
 	public static void main(String[] args) throws IOException {
 
 		// Loading an existing PDF document
-		File file = new File("pdf/meeting_notes.pdf");
+		File file = new File("pdf/test.pdf");
 		PDDocument document = PDDocument.load(file);
 
 		// Instantiating Splitter class
@@ -30,10 +30,10 @@ public class PDFSplitter {
 		int i = 1;
 		while (iterator.hasNext()) {
 			PDDocument pd = iterator.next();
-			pd.save("pdf/meeting_notes" + i++ + ".pdf");
+			pd.save("pdf/test" + i++ + ".pdf");
 		}
 
-		log("Multiple PDFs create ^-^");
+		log("Multiple PDFs created ^-^");
 		document.close();
 	}
 }

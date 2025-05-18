@@ -28,7 +28,7 @@ public class WordToPDFConverter {
 
 	public void convert(ReportModel model, String outputPath) throws IOException {
 		// Load the existing template
-		File templateFile = new File("pdf/meeting-notes_template.pdf");
+		File templateFile = new File("pdf/meeting_notes_template.pdf");
 		try (PDDocument doc = PDDocument.load(templateFile)) {
 
 			PDPage page = doc.getPage(0);
@@ -97,6 +97,7 @@ public class WordToPDFConverter {
 		try {
 			// First, create the template if it doesn't exist
 			PDFCreator.main(args);
+			PageRemover.main(args);
 
 			// Then build the template structure
 			TemplatePageBuilder.main(args);

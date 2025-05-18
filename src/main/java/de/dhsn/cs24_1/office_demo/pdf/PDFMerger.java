@@ -10,8 +10,8 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
 public class PDFMerger {
 	public static void main(String[] args) throws IOException {
-		File file1 = new File("pdf/meeting_notes1.pdf");
-		File file2 = new File("pdf/meeting_notes2.pdf");
+		File file1 = new File("pdf/test1.pdf");
+		File file2 = new File("pdf/test2.pdf");
 
 		// Instantiating PDFMergerUtility class
 		PDFMergerUtility PDFmerger = new PDFMergerUtility();
