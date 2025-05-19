@@ -17,6 +17,8 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFTable;
 
+import de.dhsn.cs24_1.office_demo.poi.basics.ExcelDemoWriter;
+
 public class ExcelTemplateWriter {
 
 	public ExcelTemplateWriter() {

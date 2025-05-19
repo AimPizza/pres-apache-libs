@@ -1,4 +1,4 @@
-package de.dhsn.cs24_1.office_demo.pdf;
+package de.dhsn.cs24_1.office_demo.pdf.basics;
 
 import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
 import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;

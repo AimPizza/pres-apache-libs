@@ -12,6 +12,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import de.dhsn.cs24_1.office_demo.pdf.basics.PDFCreator;
+import de.dhsn.cs24_1.office_demo.pdf.basics.PageRemover;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
