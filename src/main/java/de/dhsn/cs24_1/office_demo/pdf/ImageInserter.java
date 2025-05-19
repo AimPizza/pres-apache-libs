@@ -15,13 +15,12 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 public class ImageInserter {
 
 	public void insert() {
-		// Load the existing template
 		File file = new File("pdf/meeting_notes.pdf");
 		try (PDDocument doc = PDDocument.load(file)) {
 
 			PDPage page = doc.getPage(1);
 
-			// Create content stream in append mode
+			// create content stream in append mode
 			addImage(doc, page);
 
 			doc.save("pdf/meeting_report.pdf");
@@ -32,7 +31,6 @@ public class ImageInserter {
 	}
 
 	private void addImage(PDDocument doc, PDPage page) throws IOException {
-		// Creating PDImageXObject object
 		PDImageXObject pdImage = PDImageXObject.createFromFile("pdf/excel_table.png", doc);
 
 		int originalWidth = pdImage.getWidth();
@@ -43,7 +41,7 @@ public class ImageInserter {
 		int resizedHeight = (int) Math.round((double) originalHeight * resizedWidth / originalWidth);
 		int x = 70, y = 600; // note: coordinates are at bottom-left corner
 
-		// Append to existing page content
+		// append to existing page content
 		try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
 			contentStream.drawImage(pdImage, x, y, resizedWidth, resizedHeight);
 		}
