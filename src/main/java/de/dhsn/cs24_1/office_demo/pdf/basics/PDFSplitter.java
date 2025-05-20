@@ -13,20 +13,18 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 public class PDFSplitter {
 	public static void main(String[] args) throws IOException {
 
-		// Loading an existing PDF document
 		File file = new File("pdf/test.pdf");
 		PDDocument document = PDDocument.load(file);
 
-		// Instantiating Splitter class
 		Splitter splitter = new Splitter();
 
 		// splitting pages of a PDF document
 		List<PDDocument> Pages = splitter.split(document);
 
-		// Creating an iterator
+		// creating an iterator
 		Iterator<PDDocument> iterator = Pages.listIterator();
 
-		// Saving each page as an individual document
+		// saving each page as an individual document
 		int i = 1;
 		while (iterator.hasNext()) {
 			PDDocument pd = iterator.next();

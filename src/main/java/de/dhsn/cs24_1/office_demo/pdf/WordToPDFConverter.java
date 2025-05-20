@@ -19,7 +19,7 @@ import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 
 public class WordToPDFConverter {
-	// Layout constants matching TemplatePageBuilder
+	// layout constants matching TemplatePageBuilder
 	private static final float MARGIN = 70f;
 	private static final float DATE_Y = 720f;
 	private static final float PARTICIPANTS_Y = 670f;
@@ -29,13 +29,13 @@ public class WordToPDFConverter {
 	private static final float INDENT = 15f;
 
 	public void convert(ReportModel model, String outputPath) throws IOException {
-		// Load the existing template
+		// load the existing template
 		File templateFile = new File("pdf/meeting_notes_template.pdf");
 		try (PDDocument doc = PDDocument.load(templateFile)) {
 
 			PDPage page = doc.getPage(0);
 
-			// Create content stream in append mode
+			// create content stream in append mode
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
 				addDate(contentStream, model.getDate());
 

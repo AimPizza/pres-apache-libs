@@ -11,18 +11,16 @@ import org.apache.pdfbox.text.PDFTextStripper;
 public class TextExtractor {
 	public static void main(String args[]) throws IOException {
 
-		// Loading an existing document
+		// loading an existing document
 		File file = new File("pdf/test.pdf");
 		PDDocument document = PDDocument.load(file);
 
-		// Instantiate PDFTextStripper class
+		// instantiate PDFTextStripper class
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 
-		// Retrieving text from PDF document
 		String text = pdfStripper.getText(document);
 		log(text);
 
-		// Closing the document
 		document.close();
 	}
 }

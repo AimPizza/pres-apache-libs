@@ -44,7 +44,7 @@ public class PDFCreator {
 
 		document.save(filePath);
 		log("PDF with " + pages + " pages was created and saved at " + filePath);
-		document.close();
+		document.close(); // very important !!
 	}
 
 	private static void addDocumentInfo(PDDocument document) {

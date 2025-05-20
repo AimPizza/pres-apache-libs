@@ -15,12 +15,11 @@ public class TemplatePageBuilder {
 
 	public static void main(String[] args) {
 
-		// Loading an existing document
 		File file = new File("pdf/test.pdf");
 
 		try (PDDocument doc = PDDocument.load(file)) {
 
-			// Text to add:
+			// text to add:
 			String headline = "Meeting Notes";
 			String date = "Datum:";
 			String people = "Teilnehmer:";
@@ -28,10 +27,10 @@ public class TemplatePageBuilder {
 			String notes = "Notizen:";
 			String excel = "Tasks:";
 
-			// First page
+			// === FIRST PAGE ===
 			PDPage page = doc.getPage(0);
 
-			// Content stream to write on the first page
+			// content stream to write on the first page
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, page)) {
 
 				// Headline
@@ -49,7 +48,7 @@ public class TemplatePageBuilder {
 				contentStream.showText(date);
 				contentStream.endText();
 
-				// Teilnehmer
+				// Participants
 				contentStream.beginText();
 				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
 				contentStream.newLineAtOffset(70, 670);

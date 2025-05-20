@@ -13,17 +13,13 @@ public class PDFMerger {
 		File file1 = new File("pdf/test1.pdf");
 		File file2 = new File("pdf/test2.pdf");
 
-		// Instantiating PDFMergerUtility class
 		PDFMergerUtility PDFmerger = new PDFMergerUtility();
 
-		// Setting the destination file
 		PDFmerger.setDestinationFileName("pdf/merged.pdf");
 
-		// adding source files
 		PDFmerger.addSource(file1);
 		PDFmerger.addSource(file2);
 
-		// Merging the two documents
 		PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
 		log("Documents merged! :]");
 	}
