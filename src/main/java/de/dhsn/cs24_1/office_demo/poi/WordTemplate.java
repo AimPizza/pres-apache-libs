@@ -83,7 +83,7 @@ public class WordTemplate {
 		writeRun(attendeesHeading, WordTemplate.attendeesHeading, 25);
 
 		XWPFParagraph attendees = doc.createParagraph();
-		writeRun(attendees, "mit, Komma, getrennt");
+		writeRun(attendees, "Name A, Name B, Name C");
 
 		XWPFParagraph agendaHeading = doc.createParagraph();
 		agendaHeading.setStyle("Heading2");
