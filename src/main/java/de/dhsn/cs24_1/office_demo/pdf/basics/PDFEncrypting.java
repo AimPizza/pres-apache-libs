@@ -18,13 +18,15 @@ public class PDFEncrypting {
 		// creating access permission object
 		AccessPermission ap = new AccessPermission();
 
-		// creating StandardProtectionPolicy object
-		StandardProtectionPolicy spp = new StandardProtectionPolicy("test", "test", ap);
+		// disable printing
+		ap.setCanPrint(false);
+		// disable copying
+		ap.setCanExtractContent(false);
 
-		// setting the length of the encryption key
+		// creating owner and user passwords
+		StandardProtectionPolicy spp = new StandardProtectionPolicy("testowner", "testuser", ap);
+
 		spp.setEncryptionKeyLength(128);
-
-		spp.setPermissions(ap);
 
 		document.protect(spp);
 
