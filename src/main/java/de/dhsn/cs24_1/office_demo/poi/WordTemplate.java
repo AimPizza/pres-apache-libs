@@ -19,10 +19,6 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STNumberFormat;
 import de.dhsn.cs24_1.office_demo.poi.basics.WordDemoWriter;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
 
-/* IDEAS FOR PRESENTATION
- * - show xml output of a document https://modkp-technotes.blogspot.com/2013/04/poi-ordered-list-and-unordered-list.html 
- * - explain chicanery with "Heading1" and other styles
- */
 public class WordTemplate {
 
 	public static final String documentHeading = "Meeting Notes Template";
