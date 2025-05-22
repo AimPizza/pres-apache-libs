@@ -26,16 +26,13 @@ public class ExcelDemoWriter {
 		}
 	}
 
-	public static void main(String[] args) {
-		ExcelDemoWriter writer = new ExcelDemoWriter(new String[] { "Testdaten" });
-
-		XSSFSheet sheet = writer.workbook.getSheetAt(0);
-
-		Row row = sheet.createRow(0);
-		Cell cell = row.createCell(0);
-		cell.setCellValue("Hello from my test!");
-
-		writer.save("poi/simple.xlsx");
+	public void open(String path) {
+		try {
+			InputStream inp = new FileInputStream(path);
+			workbook = (XSSFWorkbook) WorkbookFactory.create(inp);
+		} catch (Exception e) {
+			logError("opening Excel document failed, " + e.getLocalizedMessage());
+		}
 	}
 
 	public void save(String path) {
@@ -50,13 +47,15 @@ public class ExcelDemoWriter {
 		}
 	}
 
-	public void open(String path) {
-		try {
-			InputStream inp = new FileInputStream(path);
-			workbook = (XSSFWorkbook) WorkbookFactory.create(inp);
-		} catch (Exception e) {
-			logError("opening Excel document failed, " + e.getLocalizedMessage());
-		}
-	}
+	public static void main(String[] args) {
+		ExcelDemoWriter writer = new ExcelDemoWriter(new String[] { "Testdaten" });
 
+		XSSFSheet sheet = writer.workbook.getSheetAt(0);
+
+		Row row = sheet.createRow(0);
+		Cell cell = row.createCell(0);
+		cell.setCellValue("Hello from my test!");
+
+		writer.save("poi/simple.xlsx");
+	}
 }

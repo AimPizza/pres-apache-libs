@@ -86,7 +86,7 @@ public class ExcelTemplateWriter {
 	public void writeTemplate() {
 		AreaReference reference = document.workbook.getCreationHelper().createAreaReference(
 				new CellReference(verticalOffset, horizontalOffset),
-				new CellReference(verticalOffset + 5, horizontalOffset + 5));
+				new CellReference(verticalOffset + 4, horizontalOffset + 4));
 		XSSFTable table = sheet.createTable(reference);
 		// I didn't fix the IDs like a user on stackoverflow suggests doing
 
