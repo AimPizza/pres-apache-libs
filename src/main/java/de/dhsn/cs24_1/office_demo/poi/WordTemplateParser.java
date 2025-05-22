@@ -32,7 +32,7 @@ public class WordTemplateParser {
 
 		log("parsing meeting..");
 
-		Path msWordPath = Paths.get(WordTemplate.output);
+		Path msWordPath = Paths.get(wordFilePath);
 
 		XWPFDocument document = new XWPFDocument(Files.newInputStream(msWordPath));
 		document = new XWPFDocument(Files.newInputStream(msWordPath));
