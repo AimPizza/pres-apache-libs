@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import de.dhsn.cs24_1.office_demo.pdf.basics.PDFCreator;
@@ -31,7 +33,7 @@ public class WordToPDFConverter {
 	public void convert(ReportModel model, String outputPath) throws IOException {
 		// load the existing template
 		File templateFile = new File("pdf/meeting_notes_template.pdf");
-		try (PDDocument doc = PDDocument.load(templateFile)) {
+		try (PDDocument doc = Loader.loadPDF(templateFile)) {
 
 			PDPage page = doc.getPage(0);
 
@@ -52,7 +54,7 @@ public class WordToPDFConverter {
 
 	private void addDate(PDPageContentStream contentStream, java.util.Date date) throws IOException {
 		contentStream.beginText();
-		contentStream.setFont(PDType1Font.HELVETICA, 10);
+		contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 10);
 		contentStream.newLineAtOffset(120, DATE_Y);
 		contentStream.showText(ReportModel.dateFormat.format(date));
 		contentStream.endText();
@@ -60,7 +62,7 @@ public class WordToPDFConverter {
 
 	private void addParticipants(PDPageContentStream contentStream, ArrayList<String> participants) throws IOException {
 		contentStream.beginText();
-		contentStream.setFont(PDType1Font.HELVETICA, 11);
+		contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 11);
 		contentStream.newLineAtOffset(MARGIN + INDENT, PARTICIPANTS_Y - LINE_SPACING);
 
 		String line = String.join(", ", participants);
@@ -70,7 +72,7 @@ public class WordToPDFConverter {
 
 	private void addAgenda(PDPageContentStream contentStream, ArrayList<String> agenda) throws IOException {
 		contentStream.beginText();
-		contentStream.setFont(PDType1Font.HELVETICA, 11);
+		contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 11);
 		// one absolute move to the first bullet position
 		contentStream.newLineAtOffset(MARGIN + INDENT, AGENDA_Y - LINE_SPACING);
 		contentStream.setLeading(LINE_SPACING);
@@ -84,7 +86,7 @@ public class WordToPDFConverter {
 
 	private void addNotes(PDPageContentStream contentStream, ArrayList<String> notes) throws IOException {
 		contentStream.beginText();
-		contentStream.setFont(PDType1Font.HELVETICA, 11);
+		contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 11);
 		// initial absolute position:
 		contentStream.newLineAtOffset(MARGIN + INDENT, NOTES_Y - LINE_SPACING);
 		contentStream.setLeading(LINE_SPACING);

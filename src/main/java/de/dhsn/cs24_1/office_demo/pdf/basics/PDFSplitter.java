@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -14,7 +15,7 @@ public class PDFSplitter {
 	public static void main(String[] args) throws IOException {
 
 		File file = new File("pdf/test.pdf");
-		PDDocument document = PDDocument.load(file);
+		PDDocument document = Loader.loadPDF(file);
 
 		Splitter splitter = new Splitter();
 

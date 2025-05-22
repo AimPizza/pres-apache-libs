@@ -6,6 +6,7 @@ import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -16,7 +17,7 @@ public class ImageInserter {
 
 	public void insert() {
 		File file = new File("pdf/meeting_notes.pdf");
-		try (PDDocument doc = PDDocument.load(file)) {
+		try (PDDocument doc = Loader.loadPDF(file)) {
 
 			PDPage page = doc.getPage(1);
 

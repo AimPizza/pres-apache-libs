@@ -6,9 +6,11 @@ import static de.dhsn.cs24_1.office_demo.shared.Utilities.logError;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class TemplatePageBuilder {
@@ -17,15 +19,7 @@ public class TemplatePageBuilder {
 
 		File file = new File("pdf/test.pdf");
 
-		try (PDDocument doc = PDDocument.load(file)) {
-
-			// text to add:
-			String headline = "Meeting Notes";
-			String date = "Datum:";
-			String people = "Teilnehmer:";
-			String agenda = "Agenda:";
-			String notes = "Notizen:";
-			String excel = "Tasks:";
+		try (PDDocument doc = Loader.loadPDF(file)) {
 
 			// === FIRST PAGE ===
 			PDPage page = doc.getPage(0);
@@ -35,38 +29,38 @@ public class TemplatePageBuilder {
 
 				// Headline
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 18);
 				contentStream.setLeading(14.5f);
-				contentStream.newLineAtOffset(70, 750);
-				contentStream.showText(headline);
+				contentStream.newLineAtOffset(70, 770);
+				contentStream.showText("Meeting Notes");
 				contentStream.endText();
 
 				// Date
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA, 10);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 10);
 				contentStream.newLineAtOffset(70, 720);
-				contentStream.showText(date);
+				contentStream.showText("Datum: ");
 				contentStream.endText();
 
 				// Participants
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE), 12);
 				contentStream.newLineAtOffset(70, 670);
-				contentStream.showText(people);
+				contentStream.showText("Teilnehmer: ");
 				contentStream.endText();
 
 				// Agenda
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE), 12);
 				contentStream.newLineAtOffset(70, 570);
-				contentStream.showText(agenda);
+				contentStream.showText("Agenda: ");
 				contentStream.endText();
 
 				// Notes
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE), 12);
 				contentStream.newLineAtOffset(70, 420);
-				contentStream.showText(notes);
+				contentStream.showText("Notizen: ");
 				contentStream.endText();
 			}
 
@@ -75,9 +69,9 @@ public class TemplatePageBuilder {
 
 			try (PDPageContentStream contentStream = new PDPageContentStream(doc, secondPage)) {
 				contentStream.beginText();
-				contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+				contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE), 12);
 				contentStream.newLineAtOffset(70, 750);
-				contentStream.showText(excel);
+				contentStream.showText("Tasks: ");
 				contentStream.endText();
 			}
 

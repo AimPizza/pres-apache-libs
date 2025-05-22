@@ -5,7 +5,6 @@ import static de.dhsn.cs24_1.office_demo.shared.Utilities.log;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
 public class PDFMerger {
@@ -20,7 +19,7 @@ public class PDFMerger {
 		PDFmerger.addSource(file1);
 		PDFmerger.addSource(file2);
 
-		PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+		PDFmerger.mergeDocuments(null, null);
 		log("Documents merged! :]");
 	}
 }

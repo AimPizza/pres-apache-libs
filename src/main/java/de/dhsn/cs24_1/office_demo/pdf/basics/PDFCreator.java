@@ -11,7 +11,10 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
+import org.apache.pdfbox.util.Matrix;
 
 /**
  * Class for demonstrating Apache PDFBox. Creates a pdf document with pages,
@@ -67,21 +70,41 @@ public class PDFCreator {
 	}
 
 	private static void addSampleText(PDDocument document) throws IOException {
-		addTextToPage(document, 0, "Hallo PDF! Ich stelle euch nun einige Funktionen von Apache PDFBox vor.");
-
-		addTextToPage(document, 1, "Dies ist Seite 2! Auch hier kann man Text einfügen.");
+		addContentToPage(document, 0, "Hallo PDF! Ich stelle euch nun einige Funktionen von Apache PDFBox vor.");
+		addContentToPage(document, 1, "Dies ist Seite 2! Auch hier kann man Text einfügen.");
 	}
 
-	private static void addTextToPage(PDDocument document, int pageIndex, String text) throws IOException {
+	private static void addContentToPage(PDDocument document, int pageIndex, String text) throws IOException {
 		if (document.getNumberOfPages() <= pageIndex) {
 			logError("Page " + (pageIndex + 1) + " does not exist.");
 			return;
 		}
 
 		PDPage page = document.getPage(pageIndex);
-		try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+		
+		// content stream for the background --> in PREPEND mode, so it's behind the text!
+		if (pageIndex == 0) {
+			try (PDPageContentStream backgroundStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.PREPEND, true)) {
+				// set light violet color (rgb)
+				backgroundStream.setNonStrokingColor(0.9f, 0.8f, 1.0f);
+				
+				// get page dimensions
+				PDRectangle pageSize = page.getMediaBox();
+				float pageWidth = pageSize.getWidth();
+				
+				// draw rectangle that covers the text area
+				backgroundStream.addRect(0, 450, pageWidth, 100);
+				backgroundStream.fill();
+				log("Box added.");
+			}
+		}
+		
+		// content stream for the text --> in APPEND mode, so it's in front of the background
+		try (PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true)) {
 			contentStream.beginText();
-			contentStream.setFont(PDType1Font.COURIER, 12);
+			contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 12);
+			// set text color to black
+			contentStream.setNonStrokingColor(0, 0, 0);
 			contentStream.newLineAtOffset(25, 500);
 			contentStream.showText(text);
 			contentStream.endText();
