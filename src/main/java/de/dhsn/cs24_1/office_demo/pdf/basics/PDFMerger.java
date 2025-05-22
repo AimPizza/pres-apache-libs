@@ -20,6 +20,6 @@ public class PDFMerger {
 		PDFmerger.addSource(file2);
 
 		PDFmerger.mergeDocuments(null, null);
-		log("Documents merged! :]");
+		log("Documents merged successfully! :] " + PDFmerger.getDestinationFileName());
 	}
 }

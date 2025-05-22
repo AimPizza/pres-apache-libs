@@ -95,7 +95,7 @@ public class PDFCreator {
 				// draw rectangle that covers the text area
 				backgroundStream.addRect(0, 450, pageWidth, 100);
 				backgroundStream.fill();
-				log("Box added.");
+				log("Background box added.");
 			}
 		}
 		
@@ -108,7 +108,7 @@ public class PDFCreator {
 			contentStream.newLineAtOffset(25, 500);
 			contentStream.showText(text);
 			contentStream.endText();
-			log("Text added on page " + (pageIndex + 1) + ".");
+			log("Text added on page " + (pageIndex + 1));
 		}
 	}
 }

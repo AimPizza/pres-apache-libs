@@ -24,15 +24,17 @@ public class ImageInserter {
 			// create content stream in append mode
 			addImage(doc, page);
 
-			doc.save("pdf/meeting_report.pdf");
-			log("Saved pdf with image. " + "pdf/meeting_report.pdf");
+			String outputPath = "pdf/meeting_report.pdf";
+			doc.save(outputPath);
+			log("PDF with image created :] " + outputPath);
 		} catch (Exception e) {
 			logError("Failed to insert image: " + e.getLocalizedMessage());
 		}
 	}
 
 	private void addImage(PDDocument doc, PDPage page) throws IOException {
-		PDImageXObject pdImage = PDImageXObject.createFromFile("pdf/excel_table.png", doc);
+		String imagePath = "pdf/excel_table.png";
+		PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, doc);
 
 		int originalWidth = pdImage.getWidth();
 		int originalHeight = pdImage.getHeight();
@@ -45,6 +47,7 @@ public class ImageInserter {
 		// append to existing page content
 		try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
 			contentStream.drawImage(pdImage, x, y, resizedWidth, resizedHeight);
+			log("Image inserted from " + imagePath);
 		}
 	}
 
@@ -53,6 +56,6 @@ public class ImageInserter {
 		ImageInserter inserter = new ImageInserter();
 		inserter.insert();
 
-		log("Table was inserted into PDF :)");
+		log("Table insertion completed :]");
 	}
 }

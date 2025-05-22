@@ -75,8 +75,9 @@ public class TemplatePageBuilder {
 				contentStream.endText();
 			}
 
-			doc.save("pdf/meeting_notes_template.pdf");
-			log("Template with headlines was created :)");
+			String outputPath = "pdf/meeting_notes_template.pdf";
+			doc.save(outputPath);
+			log("Template with headlines created :] " + outputPath);
 
 		} catch (IOException e) {
 			logError(e.getMessage());

@@ -29,10 +29,12 @@ public class PDFSplitter {
 		int i = 1;
 		while (iterator.hasNext()) {
 			PDDocument pd = iterator.next();
-			pd.save("pdf/test" + i++ + ".pdf");
+			String outputPath = "pdf/test" + i + ".pdf";
+			pd.save(outputPath);
+			i++;
 		}
 
-		log("Multiple PDFs created ^-^");
+		log("Multiple PDFs created ^^! Files: pdf/test1.pdf to pdf/test" + (i-1) + ".pdf");
 		document.close();
 	}
 }

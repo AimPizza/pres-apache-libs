@@ -31,9 +31,9 @@ public class PDFEncrypting {
 
 		document.protect(spp);
 
-		log("Document encrypted. :0");
-
-		document.save("pdf/test_pw.pdf");
+		String outputPath = "pdf/test_pw.pdf";
+		document.save(outputPath);
+		log("Document encrypted :o! " + outputPath);
 		document.close();
 	}
 }

@@ -17,12 +17,12 @@ public class PageRemover {
 
 		int noOfPages = document.getNumberOfPages();
 		int lastPage = noOfPages - 1;
-		log("There are " + noOfPages + " pages. ");
+		log("Processing file: " + file.getPath() + " (Pages: " + noOfPages + ")");
 
 		// removing the pages (= index of the page)
 		document.removePage(lastPage);
 
-		log("Last page removed.");
+		log("Last page removed and saved to " + file.getPath());
 
 		document.save(file);
 
