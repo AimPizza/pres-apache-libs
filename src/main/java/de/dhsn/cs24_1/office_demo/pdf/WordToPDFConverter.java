@@ -11,11 +11,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
-import de.dhsn.cs24_1.office_demo.pdf.basics.PDFCreator;
-import de.dhsn.cs24_1.office_demo.pdf.basics.PageRemover;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplate;
 import de.dhsn.cs24_1.office_demo.poi.WordTemplateParser;
 import de.dhsn.cs24_1.office_demo.shared.ReportModel;
@@ -99,11 +97,7 @@ public class WordToPDFConverter {
 
 	public static void main(String[] args) {
 		try {
-			// First, create the template if it doesn't exist
-			PDFCreator.main(args);
-			PageRemover.main(args);
-
-			// Then build the template structure
+			// build the template structure
 			TemplatePageBuilder.main(args);
 
 			// Parse the Word document and get the model

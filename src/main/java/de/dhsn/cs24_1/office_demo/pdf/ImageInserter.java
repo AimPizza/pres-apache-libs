@@ -38,9 +38,9 @@ public class ImageInserter {
 		int originalHeight = pdImage.getHeight();
 
 		// calculate new dimensions, avoid distortion
-		int resizedWidth = 500;
+		int resizedWidth = 450;
 		int resizedHeight = (int) Math.round((double) originalHeight * resizedWidth / originalWidth);
-		int x = 70, y = 600; // note: coordinates are at bottom-left corner
+		int x = 70, y = 650;
 
 		// append to existing page content
 		try (PDPageContentStream contentStream = new PDPageContentStream(doc, page, AppendMode.APPEND, true)) {
