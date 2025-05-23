@@ -20,7 +20,7 @@ public class TextExtractor {
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 
 		String text = pdfStripper.getText(document);
-		log(text);
+		log("In dem Dokument steht: " + text);
 
 		document.close();
 	}

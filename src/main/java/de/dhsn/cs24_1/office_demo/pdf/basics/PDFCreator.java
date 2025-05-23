@@ -11,10 +11,8 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
-import org.apache.pdfbox.util.Matrix;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 /**
  * Class for demonstrating Apache PDFBox. Creates a pdf document with pages,
@@ -81,26 +79,30 @@ public class PDFCreator {
 		}
 
 		PDPage page = document.getPage(pageIndex);
-		
-		// content stream for the background --> in PREPEND mode, so it's behind the text!
+
+		// content stream for the background --> in PREPEND mode: behind the
+		// text!
 		if (pageIndex == 0) {
-			try (PDPageContentStream backgroundStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.PREPEND, true)) {
+			try (PDPageContentStream backgroundStream = new PDPageContentStream(document, page,
+					PDPageContentStream.AppendMode.PREPEND, true)) {
 				// set light violet color (rgb)
 				backgroundStream.setNonStrokingColor(0.9f, 0.8f, 1.0f);
-				
+
 				// get page dimensions
 				PDRectangle pageSize = page.getMediaBox();
 				float pageWidth = pageSize.getWidth();
-				
+
 				// draw rectangle that covers the text area
 				backgroundStream.addRect(0, 450, pageWidth, 100);
 				backgroundStream.fill();
 				log("Background box added.");
 			}
 		}
-		
-		// content stream for the text --> in APPEND mode, so it's in front of the background
-		try (PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true)) {
+
+		// content stream for the text --> in APPEND mode: in front of the
+		// background
+		try (PDPageContentStream contentStream = new PDPageContentStream(document, page,
+				PDPageContentStream.AppendMode.APPEND, true)) {
 			contentStream.beginText();
 			contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.COURIER), 12);
 			// set text color to black

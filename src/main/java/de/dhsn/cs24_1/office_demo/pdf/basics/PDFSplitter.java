@@ -34,7 +34,7 @@ public class PDFSplitter {
 			i++;
 		}
 
-		log("Multiple PDFs created ^^! Files: pdf/test1.pdf to pdf/test" + (i-1) + ".pdf");
+		log("Multiple PDFs created! Files: pdf/test1.pdf to pdf/test" + (i - 1) + ".pdf");
 		document.close();
 	}
 }
